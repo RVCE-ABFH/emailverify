@@ -5,13 +5,16 @@ var app=express();
 	Here we are configuring our SMTP Server details.
 	STMP is mail server which is responsible for sending and recieving email.
 */
-var smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
+var smtpConfig = {
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // use SSL
     auth: {
-        user: "",
-        pass: ""
+        user: 'rvceabfh@gmail.com',
+        pass: 'rvceabfh@123'
     }
-});
+};
+var smtpTransport = nodemailer.createTransport(smtpConfig);
 var rand,mailOptions,host,link;
 /*------------------SMTP Over-----------------------------*/
 
@@ -21,7 +24,7 @@ app.get('/',function(req,res){
 	res.sendfile('index.html');
 });
 app.get('/send',function(req,res){
-        rand=Math.floor((Math.random() * 100) + 54);
+        rand=Math.floor((Math.random() * 10000) + 54);
 	host=req.get('host');
 	link="http://"+req.get('host')+"/verify?id="+rand;
 	mailOptions={
